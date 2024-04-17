@@ -84,7 +84,7 @@ You can then see any chirps you sent during testing.
   
 ## New Chirps
 
-When a new chirp is created, we want the chirp to appear without having to manually refresh the page. We make use of **livewire events**.
+When a new chirp is created, we want to make use of **livewire events**.
 
 - add a **dispatch** to `resources/views/livewire/chirps/create.blade.php` *to announce something new*
 - add a listener to `resources/views/livewire/chirps/list.blade.php` *to listen for new chirps and update list* 
@@ -97,6 +97,25 @@ We also need to show a relationship between the user and the chirp.
 Once the relationship between chirps and users is established, we can refresh the page and see the following: 
 
 ![Chirps timeline view](/assets/chirps-timeline.png)
+
+# Editing Chirps
+
+That's right folks, you don't need to subscribe to the premium membership in order to edit your previously posted chirps 😜
+
+- Update the `list view` to have an edit button `resources/views/livewire/chirps/list.blade.php`
+
+> First, we'll use the x-dropdown component that is included with Breeze. In addition, we will make this dropdown only visible to the Chirp's original author. In this dropdown, we'll add a link that will trigger the edit action on the component. This method will set the editing property to the Chirp that we want to edit. We'll use this property to conditionally display the edit form.
+
+- using **volt** we need to create the `edit` component `php artisan make:volt chirps/edit --class`
+- build out the edit functionality
+- we then need to update the `list` view to show the edited items  
+
+> If the chirp-updated event is dispatched, we'll need to update the list of Chirps. If the chirp-edit-canceled event is dispatched, we'll need to set the editing property to null so that the edit form is no longer displayed:
+
+- by default, Authorise method weill prevent **anyone** from updating a chirp, we need to allow the original author. create a **Model Policy**: `php artisan make:policy ChirpPolicy --model=Chirp` 
+- update the new file: `app/Policies/ChirpPolicy.php` to include `return $chirp->user()->is($user);`
+
+![List of edited chirps (still shows original post time)](/assets/list-show-edited-chirps.png)
 
 ---
 
