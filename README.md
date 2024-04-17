@@ -128,6 +128,38 @@ Too many late-night or Drink fueld chirps, worry not with the ability to delete 
 
 ![Create / Update / Delete](/assets/edit-and-delete.mov)
 
+# Notifications & Events
+
+How about email notifications when a new Chirp is created, Laravel has your back. 
+
+- Artisan `php artisan make:notification NewChirp`
+- Edit the new file `app/Notifications/NewChirp.php`
+- Let's **dispatch** an event that we can listen for and process in a background queue to keep **Chirper** snappy.
+
+## Create an event
+
+- Create the new event `php artisan make:event ChirpCreated`
+- Edit the new here `app/Events/ChirpCreated.php`
+
+## Dispatch the event
+
+> You may dispatch events anywhere in your application lifecycle, but as our event relates to the creation of an Eloquent model, we can configure our Chirp model to dispatch the event for us.
+
+- Update `app/Models/Chirp.php` 
+- When a chirp is created, ChirpCreated will be dispatched
+
+## Event Listener
+
+We need something that can listen for those dispatched events. 
+
+- `php artisan make:listener SendChirpCreatedNotifications --event=ChirpCreated`
+- new file `app/Listeners/SendChirpCreatedNotifications.php`
+
+> We've marked our listener with the ShouldQueue interface, which tells Laravel that the listener should be run in a queue. By default, the "sync" queue will be used to process jobs synchronously; however, you may configure a queue worker to process jobs in the background.
+
+> We've used a database cursor to avoid loading every user into memory at once.
+
+
 
 ---
 
