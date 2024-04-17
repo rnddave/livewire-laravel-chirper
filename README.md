@@ -5,7 +5,7 @@ My first time playing with [Livewire](https://livewire.laravel.com/) will be to 
 
 ---
 
-## Getting Started
+# Getting Started 
 
 - Created a github repo 
 - Cloned to my laptop and moved to that directory
@@ -74,6 +74,30 @@ We haven't built a 'show' view yet. We can still review our chirps so far by usi
 - At the prompt: `App\Models\Chirp:all();`
 
 You can then see any chirps you sent during testing. 
+
+
+# Showing Current Chirps
+
+- Add a *list* option for `resources/views/chirps.blade.php`
+- Using **volt** to create a new livewire component: `php artisan make:volt chirps/list --class`
+- Update that new file here `resources/views/livewire/chirps/list.blade.php`
+  
+## New Chirps
+
+When a new chirp is created, we want the chirp to appear without having to manually refresh the page. We make use of **livewire events**.
+
+- add a **dispatch** to `resources/views/livewire/chirps/create.blade.php` *to announce something new*
+- add a listener to `resources/views/livewire/chirps/list.blade.php` *to listen for new chirps and update list* 
+
+We also need to show a relationship between the user and the chirp. 
+
+- update the `app/Models/Chirp.php` 
+- adding a **belongs to** relationship
+
+Once the relationship between chirps and users is established, we can refresh the page and see the following: 
+
+![Chirps timeline view](/assets/chirps-timeline.png)
+
 ---
 
 Useful for me to remember (accessing composer and artisan commands via cli if not added to shell).
