@@ -5,6 +5,8 @@ My first time playing with [Livewire](https://livewire.laravel.com/) will be to 
 
 ---
 
+## Getting Started
+
 - Created a github repo 
 - Cloned to my laptop and moved to that directory
 - I use docker for playing with PHP projects in general: `curl -s "https://laravel.build/chirper" | bash`
@@ -18,11 +20,32 @@ Using `artisan` we can create Model/Migration/Controller at the same time:
 
 - Let's dive in `php artisan make:model -mc Chirp`
 
->   INFO  Model [app/Models/Chirp.php] created successfully.  **Eloquent Model**
->   INFO  Migration [database/migrations/2024_04_17_095543_create_chirps_table.php] created successfully.  **DB**
->   INFO  Controller [app/Http/Controllers/ChirpController.php] created successfully.  **Handle requests, return response**
+    INFO  Model [app/Models/Chirp.php] created successfully.  **Eloquent Model**
+    INFO  Migration [database/migrations/2024_04_17_095543_create_chirps_table.php] created successfully.  **DB**
+    INFO  Controller [app/Http/Controllers/ChirpController.php] created successfully.  **Handle requests, return response**
 
-- 
+
+Making Routes, Controller, View, standard Laravel stuff. 
+
+## Render with Livewire 
+
+When we have something to render via Livewire we use the `make:volt` command: `php artisan make:volt chirps/create --class`
+
+This command will create a new Livewire component at `resources/views/livewire/chirps/create.blade.php`
+
+## Navigation
+
+I'm using **Breeze** for this project; 
+
+- update `navigation.blade.php` to add items
+
+This file has duplicated links, one for desktop, one for responsive (mobile) devices. So update twice in this example anyway.
+
+> I am impressed by how easy it is to get fully functional navigation and user profile sections with **breeze**.
+
+
+
+---
 
 Useful for me to remember (accessing composer and artisan commands via cli if not added to shell).
 
