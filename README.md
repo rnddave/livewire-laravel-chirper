@@ -117,6 +117,18 @@ That's right folks, you don't need to subscribe to the premium membership in ord
 
 ![List of edited chirps (still shows original post time)](/assets/list-show-edited-chirps.png)
 
+# Delete that Chirp
+
+Too many late-night or Drink fueld chirps, worry not with the ability to delete a chirp. 
+
+- Update the **list view** to add a button and delet action `resources/views/livewire/chirps/list.blade.php`
+- Update the **Chirp Policy** to ensure this is limited to chirp owners `app/Policies/ChirpPolicy.php`
+
+> Rather than repeating the logic from the update method, we can define the same logic by calling the update method from our destroy method. Anyone that is authorized to update a Chirp will now be authorized to delete it as well.
+
+![Create / Update / Delete](/assets/edit-and-delete.mov)
+
+
 ---
 
 Useful for me to remember (accessing composer and artisan commands via cli if not added to shell).
